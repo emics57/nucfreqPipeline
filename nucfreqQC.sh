@@ -23,7 +23,7 @@ mkdir nucfreqResults
 outPlotPath=nucfreqResults/${genomeName}.NucPlot.png  # path to Plot output
 outBedPath=nucfreqResults/${genomeName}.variants.bed  # path to BED file output of variants and respective positions
 outTblPath=nucfreqResults/${genomeName}.tbl  # path of tabular output
-chrQC=nucfreqResults/${genomeName}.chrQC.bed
+chrQC=nucfreqResults/${genomeName}.summary.bed
 
 # Running NucPlot
 source /opt/miniconda/etc/profile.d/conda.sh
