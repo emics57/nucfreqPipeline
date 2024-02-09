@@ -18,10 +18,10 @@ sbatch nucfreqQC.sh PAN010.hifi.bam PAN010.hap2.activehor.coordinates.bed PAN010
 
 ## Outputs:
 ```
-  nucfreqResults
-  |__ PAN010.hap2.activehor.NucPlot.png
-  |__ PAN010.hap2.activehor.variants.bed
-  |__ PAN010.hap2.activehor.tbl
-  |__ PAN010.hap2.activehor.summary.bed
+ |__ nucfreqResults
+    |__ PAN010.hap2.activehor.NucPlot.png
+    |__ PAN010.hap2.activehor.variants.bed
+    |__ PAN010.hap2.activehor.tbl
+    |__ PAN010.hap2.activehor.summary.bed
 ```
 
