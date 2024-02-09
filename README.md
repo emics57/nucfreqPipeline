@@ -4,7 +4,7 @@ sbatch nucfreqQC.sh <BAM file> <BED file> <genomeName>
 ```
 ## Inputs
 ```
-BAM file: path to BAM file [required]
+BAM file: path to BAM file of aligned PacBio reads (minimap2 or winnowmap recommended) [required]
 
 BED file: path to BED file with regions to plot [required]
 
@@ -19,8 +19,8 @@ sbatch nucfreqQC.sh PAN010.hifi.bam PAN010.hap2.activehor.coordinates.bed PAN010
 ## Outputs:
 ```
  |__ nucfreqResults
-    |__ PAN010.hap2.activehor.NucPlot.png
-    |__ PAN010.hap2.activehor.variants.bed
+    |__ PAN010.hap2.activehor.NucPlot.png: plots showing locations of second most common bases
+    |__ PAN010.hap2.activehor.variants.bed: BED file of 
     |__ PAN010.hap2.activehor.tbl
     |__ PAN010.hap2.activehor.summary.bed
 ```
