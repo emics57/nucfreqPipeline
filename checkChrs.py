@@ -14,13 +14,14 @@ parser.add_argument('--output','-o',type=str,action='store',help='path to output
 
 args = parser.parse_args()
 
-hetregions=args.hetRegions
-bedcoords=args.bedCoordinates
-outFile=args.output
+# hetregions=args.hetRegions
+# bedcoords=args.bedCoordinates
+# outFile=args.output
 
-# hetregions = '/Users/emilyxu/Desktop/hg002/all.hets.control.greaterThan10.tbl'
-# bedcoords = '/Users/emilyxu/Desktop/hg002/coordinatesBed/hg002-missassemblies.bed'
-# output = '/Users/emilyxu/Desktop/hg002/chrQC.bed'
+hetregions = '/Users/emilyxu/Desktop/thesis/nucfreqPipeline/PAN010.filtered.hifi.hap1.tbl'
+bedcoords = '/Users/emilyxu/Desktop/thesis/nucfreqPipeline/PAN010.filtered.hifi.hap1.coordinates.txt'
+outFile = '/Users/emilyxu/Desktop/hg002/chrQC.bed'
+
 hetList = set()
 with open(hetregions, "r") as f:
   next(f)
@@ -30,16 +31,21 @@ with open(hetregions, "r") as f:
 
 allRegionsList = set()
 with open(bedcoords, "r") as f:
-  next(f)
   for line in f:
-    word = line.split('\t')
-    allRegionsList.add(word[0])
+    print(line)
+    if line.strip() != "*":
+      allRegionsList.add(line.strip())
+
+print(hetList)
+print(allRegionsList)
 
 finalFile = open(outFile, "w")
 for i in allRegionsList:
-  if i not in hetList:
-    finalFile.write(f"{i}\tPASS\n")
-  else:
+  if i in hetList:
+    print(i)
     finalFile.write(f"{i}\tERRORS\n")
+  else:
+    print(i)
+    finalFile.write(f"{i}\tPASS\n")
 
 finalFile.close()
