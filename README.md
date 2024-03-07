@@ -1,8 +1,16 @@
-# How to run nucfreqQC.sh on Phoenix:
+## How to run nucfreqQC.sh on Phoenix:
+First, set up your environments by downloading the .yaml files to your folder in the Phoenix cluster and then running:
+```
+conda env create -f hetdetectEnv.yaml
+conda env create -f nucfreqEnv.yaml
+```
+
+Run the script nucfreqQC.sh:
 ``` 
 sbatch nucfreqQC.sh -b <BAM file> -g <genomeName> -c <BED file>
 ```
-## Inputs
+
+### Inputs
 ```
 BAM file: path to BAM file of PacBio primary alignments [required]
           Be sure to filter out non-primary alignments with SAMflag 2308 first.
