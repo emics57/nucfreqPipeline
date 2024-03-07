@@ -1,28 +1,35 @@
 # How to run nucfreqQC.sh on Phoenix:
 ``` 
-sbatch nucfreqQC.sh <BAM file> <BED file> <genomeName>
+sbatch nucfreqQC.sh -b <BAM file> -g <genomeName> -c <BED file>
 ```
 ## Inputs
 ```
-BAM file: path to BAM file of aligned PacBio reads (minimap2 or winnowmap recommended) [required]
-
-BED file: path to BED file with regions to plot [required]
+BAM file: path to BAM file of PacBio primary alignments [required]
+          Be sure to filter out non-primary alignments with SAMflag 2308 first.
+          This script is not optimize for ONT reads yet.
 
 genomeName: output file name (no file extension needed) [required]
+
+BED file: path to BED file with regions to plot [optional]
 ```
 
-## Example: 
+## The simplest way to use nucfreqQC.sh: 
 ```
-sbatch nucfreqQC.sh PAN010.hifi.bam PAN010.hap2.activehor.coordinates.bed PAN010.hap2.activehor
+sbatch nucfreqQC.sh -b PAN010.hifi.bam -g PAN010.hifi
+```
+
+## If there are specific genomic regions you are interested in: 
+```
+sbatch nucfreqQC.sh -b PAN010.hifi.bam -g PAN010.hap2.activehor -c PAN010.hap2.activehor.coordinates.bed 
 ```
 
 ## Outputs:
 ```
- |__ nucfreqResults
-    |__ PAN010.hap2.activehor.NucPlot.png: plots showing locations of second most common bases
-    |__ PAN010.hap2.activehor.variants.bed: BED file of 
-    |__ PAN010.hap2.activehor.tbl
-    |__ PAN010.hap2.activehor.summary.bed
+ |__ PAN010.hap2.activehor-nucfreqResults
+    |__ PAN010.hap2.activehor.NucPlot.png: plots showing locations of variants
+    |__ PAN010.hap2.activehor.variants.bed: BED file of the locations of variants
+    |__ PAN010.hap2.activehor.tbl: contains clusters of variants
+    |__ PAN010.hap2.activehor.summary.bed: contains whether each contig has errors or not
 ```
 
 # Cite
