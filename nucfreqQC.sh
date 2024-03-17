@@ -41,9 +41,9 @@ conda deactivate
 source /opt/miniconda/etc/profile.d/conda.sh
 conda activate /private/home/emxu/.conda/envs/nucfreq
 if [ ${coordinates} == 'None' ]; then
-    python /private/groups/migalab/emxu/tools/NucFreq-master/NucPlot.py -t 64 --obed ${outBedPath} ${bamPath} ${outPlotPath}
+    python /private/groups/migalab/emxu/tools/NucFreq-master/NucPlot.py --obed ${outBedPath} ${bamPath} ${outPlotPath}
 else
-    python /private/groups/migalab/emxu/tools/NucFreq-master/NucPlot.py -t 64 --obed ${outBedPath} --bed ${coordinates} ${bamPath} ${outPlotPath}
+    python /private/groups/migalab/emxu/tools/NucFreq-master/NucPlot.py --obed ${outBedPath} --bed ${coordinates} ${bamPath} ${outPlotPath}
 
 fi
 conda deactivate
@@ -55,7 +55,11 @@ conda deactivate
 
 # Running checkChrs.py
 conda activate /private/home/emxu/.conda/envs/nucfreq
-python3 /private/groups/migalab/emxu/tools/checkChrs.py -r ${outTblPath} -b ${chrNames} -o ${chrQC}
+if [ ${coordinates} == 'None ]; then
+	python3 /private/groups/migalab/emxu/tools/checkChrs.py -r ${outTblPath} -b ${coordinates} -o ${chrQC}
+else
+	python3 /private/groups/migalab/emxu/tools/checkChrs.py -r ${outTblPath} -b ${chrNames} -o ${chrQC}
+fi
 conda deactivate
 
 echo "Done"
