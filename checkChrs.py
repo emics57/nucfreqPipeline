@@ -14,13 +14,13 @@ parser.add_argument('--output','-o',type=str,action='store',help='path to output
 
 args = parser.parse_args()
 
-# hetregions=args.hetRegions
-# bedcoords=args.bedCoordinates
-# outFile=args.output
+hetregions=args.hetRegions
+bedcoords=args.bedCoordinates
+outFile=args.output
 
-hetregions = '/Users/emilyxu/Desktop/thesis/nucfreqPipeline/PAN010.filtered.hifi.hap1.tbl'
-bedcoords = '/Users/emilyxu/Desktop/thesis/nucfreqPipeline/PAN010.filtered.hifi.hap1.coordinates.txt'
-outFile = '/Users/emilyxu/Desktop/hg002/chrQC.bed'
+# hetregions = '/Users/emilyxu/Desktop/thesis/nucfreqPipeline/PAN010.filtered.hifi.hap1.tbl'
+# bedcoords = '/Users/emilyxu/Desktop/thesis/nucfreqPipeline/PAN010.filtered.hifi.hap1.coordinates.txt'
+# outFile = '/Users/emilyxu/Desktop/hg002/chrQC.bed'
 
 hetList = set()
 with open(hetregions, "r") as f:
