@@ -13,13 +13,13 @@
 # path to BAM file
 bamPath=''
 # (optional) BED file of region coordinates
-coordinates='None'
+coordinates=''
 genomeName=''
 
-while getopts 'b:cg:' flag; do
+while getopts 'b:c:g:' flag; do
   case "${flag}" in
     b) bamPath="${OPTARG}" ;;
-    c) coordinates="${OPTARG:-None}" ;; # if -c argument is not given, set coordinates=None. if it is given, set it to the given argument
+    c) coordinates="${OPTARG}" ;; # if -c argument is not given, set coordinates=None. if it is given, set it to the given argument
     g) genomeName="${OPTARG}" ;;
   esac
 done
@@ -40,7 +40,8 @@ conda deactivate
 # Running NucPlot
 source /opt/miniconda/etc/profile.d/conda.sh
 conda activate /private/home/emxu/.conda/envs/nucfreq
-if [ ${coordinates} == 'None' ]; then
+echo ${coordinates}
+if [ -z ${coordinates} ]; then
     python /private/groups/migalab/emxu/tools/NucFreq-master/NucPlot.py --obed ${outBedPath} ${bamPath} ${outPlotPath}
 else
     python /private/groups/migalab/emxu/tools/NucFreq-master/NucPlot.py --obed ${outBedPath} --bed ${coordinates} ${bamPath} ${outPlotPath}
@@ -50,16 +51,12 @@ conda deactivate
 
 # Running HetDetection
 conda activate /private/home/emxu/.conda/envs/hetdetect
-Rscript /private/groups/migalab/emxu/tools/HetDetection2.R ${outBedPath} ${outTblPath}
+Rscript /private/groups/migalab/emxu/NucFreq/hetdetect.R ${outBedPath} ${outTblPath}
 conda deactivate
 
 # Running checkChrs.py
 conda activate /private/home/emxu/.conda/envs/nucfreq
-if [ ${coordinates} == 'None ]; then
-	python3 /private/groups/migalab/emxu/tools/checkChrs.py -r ${outTblPath} -b ${coordinates} -o ${chrQC}
-else
-	python3 /private/groups/migalab/emxu/tools/checkChrs.py -r ${outTblPath} -b ${chrNames} -o ${chrQC}
-fi
+python3 /private/groups/migalab/emxu/NucFreq/checkChrs.py -r ${outTblPath} -b ${chrNames} -o ${chrQC}
 conda deactivate
 
 echo "Done"
