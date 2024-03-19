@@ -28,7 +28,7 @@ done
 mkdir ${genomeName}-nucfreqResults
 outPlotPath=${genomeName}-nucfreqResults/${genomeName}.NucPlot.png  # path to Plot output
 outBedPath=${genomeName}-nucfreqResults/${genomeName}.variants.bed  # path to BED file output of variants and respective positions
-outTblPath=${genomeName}-nucfreqResults/${genomeName}.tbl  # path of tabular output
+outTblPath=${genomeName}-nucfreqResults/${genomeName}.variantClusters.tbl  # path of tabular output
 chrQC=${genomeName}-nucfreqResults/${genomeName}.summary.bed
 
 source /opt/miniconda/etc/profile.d/conda.sh
@@ -51,7 +51,7 @@ conda deactivate
 
 # Running HetDetection
 conda activate /private/home/emxu/.conda/envs/hetdetect
-Rscript /private/groups/migalab/emxu/NucFreq/hetdetect.R ${outBedPath} ${outTblPath}
+Rscript /private/groups/migalab/emxu/NucFreq/nucfreq_filtering_migalab.R ${outBedPath} ${outTblPath}
 conda deactivate
 
 # Running checkChrs.py

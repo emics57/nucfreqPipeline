@@ -5,20 +5,17 @@ require(tidyr)
 require(data.table)
 require(dplyr)
 
-# Get the arguments from the command line
-args <- commandArgs(trailingOnly = TRUE)
-
-# Check if the argument is provided
-if (length(args) < 1) {
-  stop("No argument provided", call. = FALSE)
+# Check if any command line arguments are provided
+if(length(commandArgs(trailingOnly = TRUE)) == 0) {
+  stop("No filename provided. Please provide a filename as a command-line argument.")
 }
 
-# Use the first argument
-input_arg <- args[1]
-output_arg <- args[2]
+# Get the filename from the command line
+filename <- commandArgs(trailingOnly = TRUE)[1]
+output_arg <- commandArgs(trailingOnly = TRUE)[2]
 
 #load NucFreq bed file
-df = read.table(input_arg, stringsAsFactors = FALSE, quote="", header=TRUE)
+df = read.table(filename, stringsAsFactors = FALSE, quote="", header=TRUE)
 cols =  c("chr", "start", "end", "first", "second")
 colnames(df) <- cols
 
@@ -73,7 +70,7 @@ df_final <- df %>%
             end = last(end))
 
 #calculate the lengths of het regions
-df_final$het_length<-df_final$end-df_final$start 
+df_final$het_length<-df_final$end-df_final$start
 
 #merge with the het frequency information
 df_table<-merge(df_final,het_ratio_per_group,by="group")
@@ -81,7 +78,6 @@ df_table<-merge(df_final,het_ratio_per_group,by="group")
 #only keep start and end columns
 df_table<-df_table[,c("chr","start","end","het_ratio","het_length")]
 df_table<-na.omit(df_table)
+write.table(df_table, output_arg, row.names = F, quote = F, sep="\t")
 
-# write.table(df_table, paste0(filename,"all.hets.migalab_filtering.tbl"), row.names = F, quote = F, sep="\t")
-write.table(het_df_filtered, output_arg, row.names = F, quote = F, sep="\t")
 
