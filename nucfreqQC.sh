@@ -15,14 +15,25 @@ bamPath=''
 # (optional) BED file of region coordinates
 coordinates=''
 genomeName=''
+lagDistance=''
+variantsPerCluster=''
 
-while getopts 'b:c:g:' flag; do
+while getopts 'b:c:g:d:n:' flag; do
   case "${flag}" in
     b) bamPath="${OPTARG}" ;;
-    c) coordinates="${OPTARG}" ;; # if -c argument is not given, set coordinates=None. if it is given, set it to the given argument
+    c) coordinates="${OPTARG}" ;; 
     g) genomeName="${OPTARG}" ;;
+    c) lagDistance="${OPTARG}" ;; 
+    g) variantsPerCluster="${OPTARG}" ;;
   esac
 done
+
+if [ -z ${lagDistance} ]; then
+  ${lagDistance}=500
+fi
+if [ -z ${variantsPerCluster} ]; then
+  ${variantsPerCluster}=5
+fi
 
 # Outputs:
 mkdir ${genomeName}-nucfreqResults
@@ -51,7 +62,7 @@ conda deactivate
 
 # Running HetDetection
 conda activate /private/home/emxu/.conda/envs/hetdetect
-Rscript /private/groups/migalab/emxu/NucFreq/nucfreq_filtering_migalab.R ${outBedPath} ${outTblPath}
+Rscript /private/groups/migalab/emxu/NucFreq/nucfreq_filtering_migalab.R ${outBedPath} ${outTblPath} ${lagDistance} ${variantsPerCluster}
 conda deactivate
 
 # Running checkChrs.py
