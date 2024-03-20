@@ -13,6 +13,8 @@ if(length(commandArgs(trailingOnly = TRUE)) == 0) {
 # Get the filename from the command line
 filename <- commandArgs(trailingOnly = TRUE)[1]
 output_arg <- commandArgs(trailingOnly = TRUE)[2]
+clusterSizeArg<- commandArgs(trailingOnly = TRUE)[3]
+variantsPerCluster <- commandArgs(trailingOnly = TRUE)[4]
 
 #load NucFreq bed file
 df = read.table(filename, stringsAsFactors = FALSE, quote="", header=TRUE)
@@ -36,7 +38,7 @@ df <- df %>%
   )
 
 #is distance smaller than 500 bp? if yes, set to true
-df$closby<-df$lag_distance<=500 
+df$closby<-df$lag_distance<=clusterSizeArg 
 
 #the last rows are going to have NA, since there are more variants than distances
 #let's fill it with the value of the previous row
@@ -54,7 +56,7 @@ df$group<-rleid(paste0(df$closby,df$rle))
 df<-df[!df$closby==FALSE,]
 
 #only keep rows that cluster at least 5 variants
-df<-df[df$rle>=5,] 
+df<-df[df$rle>=variantsPerCluster,] 
 
 het_ratio_per_group <- df %>%
   group_by(group) %>%
