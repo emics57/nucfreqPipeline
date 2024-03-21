@@ -23,16 +23,16 @@ while getopts 'b:c:g:d:n:' flag; do
     b) bamPath="${OPTARG}" ;;
     c) coordinates="${OPTARG}" ;; 
     g) genomeName="${OPTARG}" ;;
-    c) lagDistance="${OPTARG}" ;; 
-    g) variantsPerCluster="${OPTARG}" ;;
+    d) lagDistance="${OPTARG}" ;; 
+    n) variantsPerCluster="${OPTARG}" ;;
   esac
 done
 
 if [ -z ${lagDistance} ]; then
-  ${lagDistance}=500
+  lagDistance=500
 fi
 if [ -z ${variantsPerCluster} ]; then
-  ${variantsPerCluster}=5
+  variantsPerCluster=5
 fi
 
 # Outputs:
@@ -45,7 +45,11 @@ chrQC=${genomeName}-nucfreqResults/${genomeName}.summary.bed
 source /opt/miniconda/etc/profile.d/conda.sh
 conda activate /private/home/mcechova/.conda/envs/methylation
 chrNames=${genomeName}-nucfreqResults/${genomeName}.coordinates.txt
-samtools idxstats ${bamPath} | cut -f 1 > ${chrNames}
+if [ -z ${coordinates} ]; then
+  samtools idxstats ${bamPath} | cut -f 1 > ${chrNames}
+else
+  awk '{print $1}' ${coordinates} > ${chrNames}
+fi
 conda deactivate
 
 # Running NucPlot
@@ -71,4 +75,3 @@ python3 /private/groups/migalab/emxu/NucFreq/checkChrs.py -r ${outTblPath} -b ${
 conda deactivate
 
 echo "Done"
-
