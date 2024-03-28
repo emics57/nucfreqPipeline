@@ -44,8 +44,8 @@ sbatch nucfreqQC.sh -b PAN010.hifi.bam -g PAN010.hap2.activehor -c PAN010.hap2.a
 Citing ```NucFreq```:
 - Vollger MR, Dishuck PC, Sorensen M, Welch AE, Dang V, Dougherty ML, et al. Long-read sequence and assembly of segmental duplications. Nat Methods. 2019;16: 88–94. doi:10.1038/s41592-018-0236-3
 
-```hetDetection2.R``` was written by G. Logsdon and identifies regions where the second most common base was present in at least 10% of reads in at least 5 positions within a 500 bp region. This file was slightly modified to take arguments from the command line.
+```nucfreq_filtering_migalab.R``` was initially written by G. Logsdon and refactored by Monika Cechova. It identifies regions where the second most common base was present in at least 10% of reads in at least 5 positions within a 500 bp region. This file was slightly modified by Emily Xu to take arguments from the command line.
 
-Citing ```hetDetection2.R```:
+Citing ```nucfreq_filtering_migalab.R```:
 - Mc Cartney AM, Shafin K, Alonge M, Bzikadze AV, Formenti G, Fungtammasan A, et al. Chasing perfection: validation and polishing strategies for telomere-to-telomere genome assemblies. bioRxiv. 2021. p. 2021.07.02.450803. doi:10.1101/2021.07.02.450803
 
