@@ -41,7 +41,7 @@ sbatch nucfreqQC.sh -b PAN010.hifi.bam -g PAN010.hap2.activehor -c PAN010.hap2.a
 ```
 
 # Cite
-Citing ```NucFreq```:
+Citing [```NucFreq```](https://github.com/mrvollger/NucFreq):
 - Vollger MR, Dishuck PC, Sorensen M, Welch AE, Dang V, Dougherty ML, et al. Long-read sequence and assembly of segmental duplications. Nat Methods. 2019;16: 88–94. doi:10.1038/s41592-018-0236-3
 
 ```nucfreq_filtering_migalab.R``` was initially written by G. Logsdon and refactored by Monika Cechova. It identifies regions where the second most common base was present in at least 10% of reads in at least 5 positions within a 500 bp region. This file was slightly modified by Emily Xu to take arguments from the command line.
